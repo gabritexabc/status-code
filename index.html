@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status Code [IT] — Inteligência Artificial para o seu Negócio</title>
+<meta name="description" content="Agentes de IA, automação inteligente, análise preditiva e soluções de inteligência artificial à medida para o seu negócio. Diagnóstico gratuito.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070808;
+  --bg2:#0c0e0d;
+  --panel:#101312;
+  --line:rgba(255,255,255,.08);
+  --txt:#f2f4f3;
+  --muted:#9aa39e;
+  --green:#3fe44f;
+  --green-dim:rgba(63,228,79,.12);
+  --orange:#f5822a;
+  --orange-dim:rgba(245,130,42,.12);
+  --red:#e9502f;
+  --mono:'Ubuntu Mono',monospace;
+  --sans:'Ubuntu',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--txt);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+::selection{background:var(--green);color:#000}
+
+/* ---------- custom cursor ---------- */
+.cursor-dot,.cursor-ring{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+  border-radius:50%;transform:translate(-50%,-50%);
+}
+.cursor-dot{width:6px;height:6px;background:var(--green)}
+.cursor-ring{
+  width:34px;height:34px;border:1px solid rgba(63,228,79,.5);
+  transition:width .25s,height .25s,border-color .25s,background .25s;
+}
+.cursor-ring.hovering{width:56px;height:56px;border-color:var(--green);background:rgba(63,228,79,.08)}
+@media (hover:none),(max-width:820px){.cursor-dot,.cursor-ring{display:none}}
+
+/* ---------- background fx ---------- */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);opacity:.16;z-index:0;pointer-events:none}
+.orb-1{width:520px;height:520px;background:var(--green);top:-160px;left:-120px;animation:drift1 22s ease-in-out infinite}
+.orb-2{width:420px;height:420px;background:var(--orange);bottom:-140px;right:-100px;animation:drift2 26s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:var(--red);top:45%;left:60%;animation:drift3 30s ease-in-out infinite}
+@keyframes drift1{50%{transform:translate(90px,70px)}}
+@keyframes drift2{50%{transform:translate(-80px,-60px)}}
+@keyframes drift3{50%{transform:translate(-120px,50px)}}
+
+main,nav,footer{position:relative;z-index:1}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,4vw,48px);height:72px;
+  background:rgba(7,8,8,.72);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--txt)}
+.brand svg{display:block}
+.brand-name{font-weight:700;letter-spacing:.06em;font-size:1.02rem}
+.brand-name span{font-weight:300;color:var(--muted)}
+.brand-it{font-family:var(--mono);color:var(--green);font-size:.95rem}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:.92rem;
+  position:relative;padding:6px 0;transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:var(--green);transition:width .25s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--txt)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:24px;height:2px;background:var(--txt);margin:5px 0;transition:.3s}
+@media (max-width:960px){
+  .nav-links{display:none}
+  .burger{display:block}
+  .nav-links.open{
+    display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;
+    background:rgba(7,8,8,.97);padding:24px clamp(16px,4vw,48px) 32px;
+    border-bottom:1px solid var(--line);gap:18px;
+  }
+}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:130px clamp(16px,6vw,80px) 60px;position:relative;
+}
+.hero h1,.hero-sub,.hero-terminal{
+  opacity:0;animation:riseIn .8s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero h1{animation-delay:.1s}
+.hero-sub{animation-delay:.3s}
+.hero-terminal{animation-delay:.5s}
+@keyframes riseIn{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+h1 .status{display:inline-block;animation:glowPulse 2.6s ease-in-out 1.2s infinite}
+@keyframes glowPulse{50%{text-shadow:0 0 60px rgba(63,228,79,.95)}}
+h1{
+  font-size:clamp(2.4rem,6.4vw,4.8rem);line-height:1.08;font-weight:700;
+  letter-spacing:-.01em;max-width:15ch;
+}
+h1 .status{
+  font-family:var(--mono);color:var(--green);
+  text-shadow:0 0 34px rgba(63,228,79,.55);
+}
+.hero-sub{
+  margin-top:24px;max-width:56ch;color:var(--muted);
+  font-size:clamp(1rem,1.6vw,1.18rem);font-weight:300;
+}
+.hero-sub strong{color:var(--txt);font-weight:500}
+.hero-terminal{
+  margin-top:30px;font-family:var(--mono);font-size:.95rem;
+  color:var(--muted);min-height:1.6em;
+}
+.hero-terminal .ok{color:var(--green)}
+.hero-terminal .caret{
+  display:inline-block;width:9px;height:1.15em;background:var(--green);
+  vertical-align:text-bottom;animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.scroll-ind{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--muted);font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;
+}
+.scroll-ind .mouse{
+  width:24px;height:38px;border:1.5px solid var(--muted);border-radius:12px;
+  display:flex;justify-content:center;padding-top:6px;
+}
+.scroll-ind .wheel{
+  width:3px;height:8px;border-radius:2px;background:var(--green);
+  animation:wheel 1.6s ease-in-out infinite;
+}
+@keyframes wheel{50%{transform:translateY(10px);opacity:.2}}
+@media (max-width:820px){.scroll-ind{display:none}}
+
+/* ---------- sections ---------- */
+section{padding:100px clamp(16px,6vw,80px)}
+.sec-tag{
+  font-family:var(--mono);color:var(--green);font-size:.9rem;
+  letter-spacing:.12em;margin-bottom:14px;
+}
+h2{font-size:clamp(1.8rem,3.6vw,2.7rem);font-weight:700;line-height:1.15;max-width:22ch}
+.sec-intro{color:var(--muted);margin-top:16px;max-width:60ch;font-weight:300}
+
+/* ---------- marquee ---------- */
+.marquee-wrap{
+  overflow:hidden;border-block:1px solid var(--line);
+  padding:22px 0;background:var(--bg2);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.marquee{display:flex;gap:44px;width:max-content;animation:scrollX 36s linear infinite}
+.marquee-wrap:hover .marquee{animation-play-state:paused}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+.marquee span{
+  font-family:var(--mono);font-size:1rem;color:var(--muted);
+  display:flex;align-items:center;gap:44px;white-space:nowrap;
+}
+.marquee span::after{content:'●';color:var(--green);font-size:.55rem}
+
+/* ---------- services ---------- */
+.grid-services{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:18px;margin-top:48px;
+}
+.card{
+  position:relative;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:26px;cursor:pointer;overflow:hidden;
+  transition:transform .25s,border-color .25s;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(63,228,79,.4)}
+.card .glow{
+  position:absolute;inset:0;opacity:0;transition:opacity .3s;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(63,228,79,.13),transparent 65%);
+}
+.card:hover .glow{opacity:1}
+.card-code{
+  font-family:var(--mono);font-weight:700;font-size:.9rem;color:#000;
+  background:var(--green);border-radius:7px;padding:4px 10px;
+  display:inline-block;margin-bottom:16px;
+}
+.card:nth-child(3n) .card-code{background:var(--orange)}
+.card h3{font-size:1.12rem;font-weight:700;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.92rem;font-weight:300}
+.card-details{
+  max-height:0;overflow:hidden;transition:max-height .45s ease,margin .45s ease;
+}
+.card.open .card-details{max-height:260px;margin-top:14px}
+.card-details li{
+  list-style:none;color:var(--muted);font-size:.88rem;padding:5px 0 5px 22px;
+  position:relative;
+}
+.card-details li::before{
+  content:'>';font-family:var(--mono);color:var(--green);
+  position:absolute;left:0;font-weight:700;
+}
+.card-toggle{
+  margin-top:14px;font-family:var(--mono);font-size:.82rem;color:var(--green);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.card-toggle::after{content:'+';font-weight:700;transition:transform .3s}
+.card.open .card-toggle::after{transform:rotate(45deg)}
+
+/* ---------- trends ---------- */
+#tendencias{background:var(--bg2);border-block:1px solid var(--line)}
+.grid-trends{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:18px;margin-top:48px;
+}
+.trend{
+  background:var(--bg);border:1px solid var(--line);border-radius:16px;
+  padding:28px;transition:transform .25s,border-color .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.trend::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--green),var(--orange));
+  transform:scaleX(0);transform-origin:left;transition:transform .35s;
+}
+.trend:hover{transform:translateY(-5px);border-color:rgba(245,130,42,.4);box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.trend:hover::before{transform:scaleX(1)}
+.trend-year{
+  font-family:var(--mono);font-size:.8rem;color:var(--orange);
+  letter-spacing:.15em;
+}
+.trend h3{font-size:1.15rem;margin:10px 0 8px}
+.trend p{color:var(--muted);font-size:.92rem;font-weight:300}
+
+/* ---------- process ---------- */
+.grid-process{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:32px;margin-top:56px;
+}
+.step{text-align:center;position:relative}
+.step-circle{
+  width:84px;height:84px;margin:0 auto 20px;border-radius:50%;
+  border:2px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--green);
+  position:relative;background:var(--bg2);transition:border-color .3s,box-shadow .3s;
+}
+.step:hover .step-circle{border-color:var(--green);box-shadow:0 0 34px rgba(63,228,79,.25)}
+.step-circle::after{
+  content:'';position:absolute;inset:-2px;border-radius:50%;
+  border:2px solid transparent;border-top-color:var(--green);
+  animation:spin 3.2s linear infinite;opacity:0;transition:opacity .3s;
+}
+.step:hover .step-circle::after{opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.step h3{font-size:1.08rem;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.9rem;font-weight:300}
+
+/* ---------- footer ---------- */
+footer{background:#050606;border-top:1px solid var(--line);padding:70px clamp(16px,6vw,80px) 34px}
+.foot-simple{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;
+}
+.foot-links{
+  display:flex;gap:26px;flex-wrap:wrap;justify-content:center;
+  font-family:var(--mono);font-size:.92rem;margin-top:6px;
+}
+.foot-links a{color:var(--txt);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--green)}
+.copyright{
+  margin-top:30px;text-align:center;color:#5a625e;font-size:.82rem;
+  font-family:var(--mono);
+}
+
+/* ---------- whatsapp fab ---------- */
+.wa-fab{
+  position:fixed;right:24px;bottom:24px;z-index:95;
+  width:60px;height:60px;border-radius:50%;
+  background:#25d366;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(37,211,102,.45);
+  transition:transform .2s,box-shadow .2s;
+}
+.wa-fab:hover{transform:scale(1.1);box-shadow:0 12px 38px rgba(37,211,102,.6)}
+.wa-fab svg{width:32px;height:32px;fill:#fff}
+.wa-fab::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:2px solid #25d366;animation:waPing 2s ease-out infinite;
+}
+@keyframes waPing{from{transform:scale(1);opacity:.8}to{transform:scale(1.6);opacity:0}}
+.wa-fab::after{
+  content:'Fale connosco';position:absolute;right:72px;top:50%;transform:translateY(-50%);
+  background:var(--panel);border:1px solid var(--line);color:var(--txt);
+  font-size:.82rem;font-family:var(--mono);padding:8px 14px;border-radius:8px;
+  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.wa-fab:hover::after{opacity:1}
+@media (max-width:820px){.wa-fab{right:16px;bottom:16px;width:54px;height:54px}.wa-fab::after{display:none}}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transition:opacity .7s ease,transform .7s ease}
+.reveal.r-up{transform:translateY(36px)}
+.reveal.r-left{transform:translateX(-40px)}
+.reveal.r-right{transform:translateX(40px)}
+.reveal.r-scale{transform:scale(.92)}
+.reveal.visible{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.hero h1,.hero-sub,.hero-terminal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+<div class="cursor-dot"></div><div class="cursor-ring"></div>
+
+<a class="wa-fab" href="https://wa.me/351966101031?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20gratuito%20de%20IA%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav id="nav">
+  <a class="brand" href="#top" aria-label="Status Code">
+    <span class="brand-name">STATUS<span>CODE</span> <span class="brand-it">[IT]</span></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#tendencias">Tendências</a></li>
+    <li><a href="#processo">Processo</a></li>
+    <li><a href="#contactos">Contactos</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>O futuro do seu negócio<br><span class="status">[200&nbsp;OK]</span></h1>
+    <p class="hero-sub">
+      <strong>Agentes de IA · Automação inteligente · Dados que decidem.</strong><br>
+      Levamos a inteligência artificial ao seu negócio — a atender clientes,
+      a automatizar tarefas e a prever o que aí vem. Sem complicações.
+    </p>
+    <div class="hero-terminal" aria-hidden="true"><span id="typeLine"></span><span class="caret"></span></div>
+    <div class="scroll-ind"><div class="mouse"><div class="wheel"></div></div>SCROLL</div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee" id="marquee">
+      <span>Agentes de IA</span><span>Automação Inteligente</span><span>Análise Preditiva</span>
+      <span>Geração de Conteúdo</span><span>Marketing com IA</span><span>Copilotos para Equipas</span>
+      <span>Dados & Insights</span><span>Visão Computacional</span><span>IA de Voz</span>
+      <span>Integração de IA</span><span>Formação em IA</span><span>Consultoria em IA</span>
+      <span>IA à Medida</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="servicos">
+    <div class="sec-tag reveal r-left">&lt;section id="servicos"&gt;</div>
+    <h2 class="reveal r-up">13 serviços. Tudo inteligência artificial.</h2>
+    <p class="sec-intro reveal r-up">IA que atende, automatiza, analisa e cria — aplicada ao seu negócio, sem complicações. Clique em cada cartão para ver os detalhes.</p>
+    <div class="grid-services">
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">01</span><h3>Agentes de IA</h3><p>Atendimento automático 24/7 que fala com os seus clientes.</p><ul class="card-details"><li>Chatbots no site, WhatsApp e Messenger</li><li>Respostas a dúvidas e marcações</li><li>Escala para humano quando necessário</li><li>Treinados com a informação do seu negócio</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">02</span><h3>Automação Inteligente</h3><p>As tarefas repetitivas deixam de ser suas.</p><ul class="card-details"><li>Processamento automático de faturas e emails</li><li>Fluxos de trabalho com decisões por IA</li><li>Relatórios gerados sozinhos</li><li>Horas recuperadas todas as semanas</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">03</span><h3>Análise Preditiva</h3><p>Saiba o que vai acontecer antes de acontecer.</p><ul class="card-details"><li>Previsão de vendas e procura</li><li>Deteção de padrões e anomalias</li><li>Sazonalidade e tendências</li><li>Decisões baseadas em dados, não em palpites</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">04</span><h3>Geração de Conteúdo</h3><p>Textos, imagens e vídeo criados por IA — com a sua marca.</p><ul class="card-details"><li>Artigos, descrições e newsletters</li><li>Imagens e vídeos gerados</li><li>Tom de voz da sua marca</li><li>Revisão humana incluída</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">05</span><h3>Marketing com IA</h3><p>Campanhas que aprendem e melhoram sozinhas.</p><ul class="card-details"><li>Publicações para redes sociais</li><li>Segmentação inteligente de clientes</li><li>Otimização automática de anúncios</li><li>Análise de resultados em tempo real</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">06</span><h3>Copilotos para Equipas</h3><p>Um assistente de IA para cada posto de trabalho.</p><ul class="card-details"><li>Redação de emails e documentos</li><li>Resumos de reuniões e relatórios</li><li>Pesquisa interna instantânea</li><li>Integração com as ferramentas que já usa</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">07</span><h3>Dados & Insights</h3><p>Os seus dados transformados em respostas.</p><ul class="card-details"><li>Dashboards inteligentes em tempo real</li><li>Perguntas em linguagem natural</li><li>Alertas automáticos do que importa</li><li>Ligação a todas as suas fontes de dados</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">08</span><h3>Visão Computacional</h3><p>IA que vê — contagem, controlo e segurança.</p><ul class="card-details"><li>Contagem de pessoas e objetos</li><li>Controlo de qualidade automático</li><li>Videovigilância inteligente</li><li>Leitura de documentos e etiquetas</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">09</span><h3>IA de Voz</h3><p>Atendimento telefónico e transcrição — sem esperas.</p><ul class="card-details"><li>Atendedor telefónico com IA</li><li>Transcrição de reuniões e chamadas</li><li>Notas e resumos automáticos</li><li>Vozes naturais em português</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">10</span><h3>Integração de IA</h3><p>Ligamos a IA aos sistemas que já usa.</p><ul class="card-details"><li>APIs e conectores à medida</li><li>IA dentro do seu software atual</li><li>Migração de dados segura</li><li>Sem interromper a operação</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">11</span><h3>Formação em IA</h3><p>A sua equipa a dominar as ferramentas do futuro.</p><ul class="card-details"><li>Workshops práticos e à medida</li><li>IA no dia a dia do escritório</li><li>Boas práticas e segurança</li><li>Acompanhamento contínuo</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">12</span><h3>Consultoria em IA</h3><p>Diagnóstico e roadmap de adoção de IA — por fases.</p><ul class="card-details"><li>Auditoria de oportunidades de IA</li><li>Roadmap de adoção por fases</li><li>Conformidade RGPD e AI Act</li><li>Acompanhamento da implementação</li></ul><span class="card-toggle">detalhes</span></div>
+      <div class="card reveal r-scale"><div class="glow"></div><span class="card-code">13</span><h3>IA à Medida</h3><p>Soluções de IA construídas para o seu caso.</p><ul class="card-details"><li>Assistentes personalizados</li><li>Modelos treinados com os seus dados</li><li>IA privada — os dados ficam consigo</li><li>Do protótipo à produção</li></ul><span class="card-toggle">detalhes</span></div>
+    </div>
+  </section>
+
+  <!-- TRENDS -->
+  <section id="tendencias">
+    <div class="sec-tag reveal r-left">&lt;section id="tendencias"&gt;</div>
+    <h2 class="reveal r-up">O que aí vem em 2027 — e como o preparamos</h2>
+    <p class="sec-intro reveal r-up">A tecnologia não pára. Nós garantimos que o seu negócio acompanha.</p>
+    <div class="grid-trends">
+      <div class="trend reveal r-up"><div class="trend-year">TENDÊNCIA · 2027</div><h3>Agentes autónomos</h3><p>IA que não só responde — executa. Agentes que tratam de tarefas completas do princípio ao fim, sem intervenção.</p></div>
+      <div class="trend reveal r-up"><div class="trend-year">TENDÊNCIA · 2027</div><h3>IA multimodal</h3><p>Voz, imagem, vídeo e texto no mesmo assistente. A IA vê, ouve e fala — e o atendimento nunca mais é o mesmo.</p></div>
+      <div class="trend reveal r-up"><div class="trend-year">TENDÊNCIA · 2027</div><h3>Copilotos no trabalho</h3><p>Cada colaborador com um assistente de IA ao lado. As empresas que adotarem primeiro ganham a vantagem.</p></div>
+      <div class="trend reveal r-up"><div class="trend-year">TENDÊNCIA · 2027</div><h3>AI Act europeu</h3><p>A regulamentação europeia de IA entra em vigor. Ajudamos a usar IA com confiança — e em conformidade.</p></div>
+      <div class="trend reveal r-up"><div class="trend-year">TENDÊNCIA · 2027</div><h3>IA privada</h3><p>Modelos que correm na sua infraestrutura: todo o poder da IA, com os seus dados sempre em casa.</p></div>
+      <div class="trend reveal r-up"><div class="trend-year">TENDÊNCIA · 2027</div><h3>Hiperautomação</h3><p>Processos automatizados de ponta a ponta, com IA a decidir no meio. Menos trabalho manual, mais crescimento.</p></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="processo">
+    <div class="sec-tag reveal r-left">&lt;section id="processo"&gt;</div>
+    <h2 class="reveal r-up">Como funciona</h2>
+    <p class="sec-intro reveal r-up">Simples, transparente e sem surpresas — do primeiro contacto à entrega.</p>
+    <div class="grid-process">
+      <div class="step reveal r-up"><div class="step-circle">1</div><h3>Contacto & Diagnóstico</h3><p>Fale connosco online. Identificamos onde a IA pode ter mais impacto no seu negócio — gratuitamente.</p></div>
+      <div class="step reveal r-up"><div class="step-circle">2</div><h3>Orçamento</h3><p>Recebe uma proposta clara e sem compromisso. Só avançamos com a sua aprovação.</p></div>
+      <div class="step reveal r-up"><div class="step-circle">3</div><h3>Implementação</h3><p>Construímos e treinamos a solução de IA, integrada com as ferramentas que já usa.</p></div>
+      <div class="step reveal r-up"><div class="step-circle">4</div><h3>Entrega & Evolução</h3><p>Entregamos a funcionar e ficamos por perto — a IA melhora com o tempo, e nós também.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contactos">
+  <div class="foot-simple">
+    <div class="foot-links">
+      <a href="mailto:status-code@outlook.com">status-code@outlook.com</a>
+    </div>
+    <div class="copyright">© <span id="year"></span> Status Code, Unipessoal Lda · [200 OK]</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* year */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- neural particles ---------- */
+var canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
+var P = [], mouse = {x:null,y:null}, W, H;
+function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize(); addEventListener('resize', resize);
+var COUNT = innerWidth < 820 ? 45 : 100;
+for (var i=0;i<COUNT;i++){
+  P.push({x:Math.random()*W, y:Math.random()*H,
+          vx:(Math.random()-.5)*.45, vy:(Math.random()-.5)*.45,
+          r:Math.random()*1.6+.6});
+}
+addEventListener('mousemove', function(e){ mouse.x=e.clientX; mouse.y=e.clientY; });
+addEventListener('mouseleave', function(){ mouse.x=mouse.y=null; });
+function tick(){
+  ctx.clearRect(0,0,W,H);
+  for (var i=0;i<P.length;i++){
+    var p=P[i];
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W) p.vx*=-1;
+    if(p.y<0||p.y>H) p.vy*=-1;
+    if(mouse.x!==null){
+      var dx=p.x-mouse.x, dy=p.y-mouse.y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<130 && d>0){ p.x+=dx/d*.6; p.y+=dy/d*.6; }
+    }
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(63,228,79,.5)'; ctx.fill();
+    for (var j=i+1;j<P.length;j++){
+      var q=P[j], dx2=p.x-q.x, dy2=p.y-q.y, d2=dx2*dx2+dy2*dy2;
+      if(d2<120*120){
+        ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle='rgba(63,228,79,'+(0.14*(1-d2/(120*120)))+')';
+        ctx.lineWidth=1; ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(tick);
+}
+if(!reduced) tick();
+
+/* ---------- custom cursor ---------- */
+var dot=document.querySelector('.cursor-dot'), ring=document.querySelector('.cursor-ring');
+var rx=0, ry=0, tx=0, ty=0;
+addEventListener('mousemove', function(e){
+  tx=e.clientX; ty=e.clientY;
+  dot.style.left=tx+'px'; dot.style.top=ty+'px';
+});
+(function ringLoop(){
+  rx+=(tx-rx)*.16; ry+=(ty-ry)*.16;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(ringLoop);
+})();
+document.querySelectorAll('a,button,.card').forEach(function(el){
+  el.addEventListener('mouseenter', function(){ ring.classList.add('hovering'); });
+  el.addEventListener('mouseleave', function(){ ring.classList.remove('hovering'); });
+});
+
+/* ---------- typing effect ---------- */
+var lines=[
+  'GET /diagnostico  →  <span class="ok">200 OK — gratuito</span>',
+  'POST /agente-ia   →  <span class="ok">200 OK — a atender 24/7</span>',
+  'GET /automacao    →  <span class="ok">200 OK — horas poupadas</span>',
+  'GET /futuro       →  <span class="ok">200 OK — já disponível</span>'
+];
+var typeEl=document.getElementById('typeLine'), li=0, ci=0, deleting=false;
+function stripTags(s){ return s.replace(/<[^>]+>/g,''); }
+function typeTick(){
+  var full=lines[li], plain=stripTags(full);
+  if(!deleting){
+    ci++;
+    if(ci>=plain.length){ ci=plain.length; typeEl.innerHTML=full; deleting=true; setTimeout(typeTick,2600); return; }
+  } else {
+    ci--;
+    if(ci<=0){ ci=0; deleting=false; li=(li+1)%lines.length; }
+  }
+  typeEl.textContent=plain.slice(0,ci);
+  setTimeout(typeTick, deleting?18:46);
+}
+if(!reduced) typeTick(); else typeEl.innerHTML=lines[0];
+
+/* ---------- marquee duplicate ---------- */
+var mq=document.getElementById('marquee');
+mq.innerHTML+=mq.innerHTML;
+
+/* ---------- expandable cards + glow tracking ---------- */
+document.querySelectorAll('.card').forEach(function(card){
+  card.addEventListener('click', function(){ card.classList.toggle('open'); });
+  card.addEventListener('mousemove', function(e){
+    var r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+});
+
+/* ---------- scroll reveal ---------- */
+var revealObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(en,idx){
+    if(en.isIntersecting){
+      en.target.style.transitionDelay=(en.target.dataset.d||0)+'ms';
+      en.target.classList.add('visible');
+      revealObs.unobserve(en.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el,i){
+  el.dataset.d=(i%4)*90;
+  revealObs.observe(el);
+});
+
+/* ---------- active nav ---------- */
+var sections=document.querySelectorAll('section[id], header.hero');
+var navAnchors=document.querySelectorAll('.nav-links a');
+var navObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      var id=en.target.id;
+      navAnchors.forEach(function(a){
+        a.classList.toggle('active', a.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(function(s){ navObs.observe(s); });
+
+/* ---------- mobile menu ---------- */
+var burger=document.getElementById('burger'), navLinks=document.getElementById('navLinks');
+burger.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+navLinks.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+});
+})();
+</script>
+</body>
+</html>

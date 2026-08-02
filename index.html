@@ -385,6 +385,43 @@ body.mode-3d .marquee-wrap{margin-bottom:40px}
 body.mode-3d .reveal{opacity:1;transform:none;transition:none}
 body.mode-3d footer{background:transparent;border-top:1px solid var(--line);padding:44px 0 0;margin-top:56px}
 body.mode-3d #tendencias{background:transparent;border-block:none}
+/* cenas compactas: cabem em 92vh sem scroll interno */
+body.mode-3d #servicos .scene-inner{padding-top:40px;padding-bottom:16px}
+body.mode-3d #servicos .marquee-wrap{padding:12px 0;margin-bottom:18px}
+body.mode-3d #servicos .sec-intro{margin-top:8px}
+body.mode-3d #servicos .grid-services{margin-top:20px;gap:14px}
+body.mode-3d #servicos .card{padding:20px}
+body.mode-3d #servicos .card-code{margin-bottom:10px}
+body.mode-3d #tendencias .scene-inner{padding-top:40px;padding-bottom:16px}
+body.mode-3d #tendencias .sec-intro{margin-top:8px}
+body.mode-3d #tendencias .grid-trends{margin-top:20px;gap:14px}
+body.mode-3d #tendencias .trend{padding:20px}
+/* ecrãs baixos (portáteis 720-800p): compactação extra */
+@media (max-height:820px){
+  body.mode-3d .scene-inner{padding-top:28px}
+  body.mode-3d h2{font-size:1.5rem}
+  body.mode-3d .sec-intro{font-size:.9rem}
+  body.mode-3d #servicos .marquee-wrap{display:none}
+  body.mode-3d #servicos .card{padding:16px}
+  body.mode-3d #servicos .card h3{font-size:1rem}
+  body.mode-3d #servicos .card p{font-size:.85rem}
+  body.mode-3d #contactos .wa-form{gap:8px;padding:14px 16px}
+  body.mode-3d #contactos .wa-form input,
+  body.mode-3d #contactos .wa-form select,
+  body.mode-3d #contactos .wa-form textarea{padding:8px 12px}
+  body.mode-3d #contactos .wa-form textarea{min-height:56px}
+  body.mode-3d #contactos .wa-submit{padding:11px}
+  body.mode-3d #contactos .form-field label{font-size:.72rem}
+  body.mode-3d #contactos .wa-alt{font-size:.75rem}
+  body.mode-3d #contactos footer{margin-top:14px;padding:12px 0 0}
+  body.mode-3d #contactos .sec-tag{display:none}
+}
+body.mode-3d #contactos .scene-inner{padding-top:40px;padding-bottom:16px}
+body.mode-3d #contactos .sec-intro{margin-top:8px}
+body.mode-3d #contactos .wa-form{margin-top:18px;padding:18px 20px;gap:11px}
+body.mode-3d #contactos .wa-form textarea{min-height:72px}
+body.mode-3d #contactos footer{margin-top:20px;padding:16px 0 0}
+body.mode-3d #contactos .copyright{margin-top:8px}
 body:not(.mode-3d) #contactos footer{margin:60px calc(-1*clamp(16px,6vw,80px)) -100px}
 .scene-dots{
   position:fixed;right:22px;top:50%;transform:translateY(-50%);
